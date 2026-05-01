@@ -22,30 +22,36 @@
       border-radius: 20px;
       padding: 28px 20px;
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       box-shadow: 0 8px 30px rgba(0,0,0,0.12);
     }
 
     h2 {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 6px;
       font-size: 18px;
       color: #333;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 12px;
+      color: #aaa;
+      margin-bottom: 20px;
     }
 
     .upload-area {
       border: 2px dashed #90caf9;
       border-radius: 12px;
-      padding: 18px;
+      padding: 16px;
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       cursor: pointer;
       background: #e3f2fd;
       transition: background 0.2s;
     }
 
     .upload-area:hover { background: #bbdefb; }
-
     .upload-area input { display: none; }
 
     .upload-label {
@@ -58,10 +64,32 @@
     .file-info {
       font-size: 12px;
       color: #888;
-      margin-top: 6px;
+      margin-top: 5px;
     }
 
-    #results { margin-top: 10px; }
+    /* Strip config row */
+    .config-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      color: #555;
+    }
+
+    .config-row select {
+      flex: 1;
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 13px;
+      background: white;
+    }
+
+    #results { margin-top: 4px; }
 
     .phone-item {
       background: #64b5f6;
@@ -70,196 +98,370 @@
       margin-bottom: 10px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background 0.2s, transform 0.1s;
       position: relative;
+      user-select: none;
     }
 
-    .phone-item:hover { background: #42a5f5; }
+    .phone-item:hover { background: #42a5f5; transform: scale(1.01); }
+    .phone-item:active { transform: scale(0.98); }
 
-    .phone-item .copy-icon {
-      font-size: 18px;
-      flex-shrink: 0;
-    }
+    .copy-icon { font-size: 17px; flex-shrink: 0; }
+    .flag { font-size: 20px; flex-shrink: 0; }
 
-    .phone-item .flag {
-      font-size: 20px;
-      flex-shrink: 0;
-    }
-
-    .phone-item .number {
-      font-size: 16px;
-      font-weight: 600;
-      color: white;
-      letter-spacing: 0.5px;
+    .number-wrap {
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .number-orig {
+      font-size: 15px;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 0.3px;
+    }
+
+    .number-stripped {
+      font-size: 11px;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 0.2px;
     }
 
     .copy-toast {
       position: absolute;
-      right: 14px;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
       background: #1a237e;
       color: white;
       font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 6px;
+      padding: 4px 9px;
+      border-radius: 8px;
       opacity: 0;
       transition: opacity 0.3s;
       pointer-events: none;
+      white-space: nowrap;
     }
 
     .copy-toast.show { opacity: 1; }
 
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
     .btn-change {
-      width: 100%;
-      padding: 15px;
+      flex: 1;
+      padding: 14px;
       background: #e57373;
       color: white;
       border: none;
       border-radius: 14px;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 7px;
       transition: background 0.2s;
-      margin-top: 4px;
     }
 
     .btn-change:hover { background: #ef5350; }
     .btn-change:disabled { background: #ccc; cursor: not-allowed; }
 
+    .btn-copy-all {
+      padding: 14px 16px;
+      background: #66bb6a;
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-copy-all:hover { background: #43a047; }
+    .btn-copy-all:disabled { background: #ccc; cursor: not-allowed; }
+
     .count-info {
       text-align: center;
       font-size: 12px;
       color: #aaa;
-      margin-top: 12px;
+      margin-top: 10px;
     }
 
     .empty-msg {
       text-align: center;
-      color: #aaa;
+      color: #bbb;
       font-size: 14px;
-      padding: 20px 0;
+      padding: 24px 0;
     }
+
+    .toast-global {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #212121;
+      color: white;
+      padding: 10px 22px;
+      border-radius: 20px;
+      font-size: 13px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .toast-global.show { opacity: 1; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>🎲 Random Phone Number</h2>
 
-    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-      <label class="upload-label">📂 Upload File .TXT</label>
-      <input type="file" id="fileInput" accept=".txt" onchange="handleFile(event)" />
-      <div class="file-info" id="fileInfo">Klik untuk pilih file berisi daftar nomor HP</div>
-    </div>
+<div class="container">
+  <h2>🎲 Random Phone Number</h2>
+  <p class="subtitle">Copy otomatis hapus kode negara & spasi</p>
 
-    <div id="results">
-      <div class="empty-msg">Silakan upload file .txt terlebih dahulu</div>
-    </div>
+  <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+    <label class="upload-label">📂 Upload File .TXT</label>
+    <input type="file" id="fileInput" accept=".txt" onchange="handleFile(event)" />
+    <div class="file-info" id="fileInfo">Klik untuk pilih file · Format: satu nomor per baris</div>
+  </div>
 
+  <div class="config-row">
+    <span>✂️ Strip kode negara:</span>
+    <select id="stripMode">
+      <option value="auto">Otomatis (deteksi)</option>
+      <option value="1">+1 (AS/Kanada)</option>
+      <option value="44">+44 (UK)</option>
+      <option value="62">+62 (Indonesia)</option>
+      <option value="60">+60 (Malaysia)</option>
+      <option value="65">+65 (Singapura)</option>
+      <option value="58">+58 (Venezuela)</option>
+      <option value="55">+55 (Brazil)</option>
+      <option value="91">+91 (India)</option>
+      <option value="86">+86 (China)</option>
+      <option value="none">Jangan strip</option>
+    </select>
+  </div>
+
+  <div id="results">
+    <div class="empty-msg">Silakan upload file .txt terlebih dahulu</div>
+  </div>
+
+  <div class="btn-row">
     <button class="btn-change" id="btnChange" onclick="pickRandom()" disabled>
       🔄 Change Number
     </button>
-
-    <div class="count-info" id="countInfo"></div>
+    <button class="btn-copy-all" id="btnCopyAll" onclick="copyAll()" disabled>
+      📋 Copy Semua
+    </button>
   </div>
 
-  <script>
-    let allNumbers = [];
-    const COUNT = 5;
+  <div class="count-info" id="countInfo"></div>
+</div>
 
-    // Mapping kode negara → emoji bendera
-    const countryFlags = {
-      '1':   '🇺🇸', '44':  '🇬🇧', '61':  '🇦🇺', '49':  '🇩🇪',
-      '33':  '🇫🇷', '81':  '🇯🇵', '82':  '🇰🇷', '86':  '🇨🇳',
-      '91':  '🇮🇳', '62':  '🇮🇩', '60':  '🇲🇾', '65':  '🇸🇬',
-      '63':  '🇵🇭', '66':  '🇹🇭', '84':  '🇻🇳', '95':  '🇲🇲',
-      '58':  '🇻🇪', '55':  '🇧🇷', '52':  '🇲🇽', '54':  '🇦🇷',
-      '57':  '🇨🇴', '51':  '🇵🇪', '56':  '🇨🇱', '593': '🇪🇨',
-      '27':  '🇿🇦', '234': '🇳🇬', '20':  '🇪🇬', '212': '🇲🇦',
-      '971': '🇦🇪', '966': '🇸🇦', '92':  '🇵🇰', '880': '🇧🇩',
-      '7':   '🇷🇺', '380': '🇺🇦', '48':  '🇵🇱', '31':  '🇳🇱',
-      '39':  '🇮🇹', '34':  '🇪🇸', '351': '🇵🇹', '30':  '🇬🇷',
-      '90':  '🇹🇷', '98':  '🇮🇷', '972': '🇮🇱',
+<div class="toast-global" id="toastGlobal"></div>
+
+<script>
+  let allNumbers = [];
+  const COUNT = 5;
+  let currentPicked = [];
+
+  const countryData = [
+    { code: '1',   flag: '🇺🇸' },
+    { code: '44',  flag: '🇬🇧' },
+    { code: '61',  flag: '🇦🇺' },
+    { code: '49',  flag: '🇩🇪' },
+    { code: '33',  flag: '🇫🇷' },
+    { code: '81',  flag: '🇯🇵' },
+    { code: '82',  flag: '🇰🇷' },
+    { code: '86',  flag: '🇨🇳' },
+    { code: '91',  flag: '🇮🇳' },
+    { code: '62',  flag: '🇮🇩' },
+    { code: '60',  flag: '🇲🇾' },
+    { code: '65',  flag: '🇸🇬' },
+    { code: '63',  flag: '🇵🇭' },
+    { code: '66',  flag: '🇹🇭' },
+    { code: '84',  flag: '🇻🇳' },
+    { code: '95',  flag: '🇲🇲' },
+    { code: '58',  flag: '🇻🇪' },
+    { code: '55',  flag: '🇧🇷' },
+    { code: '52',  flag: '🇲🇽' },
+    { code: '54',  flag: '🇦🇷' },
+    { code: '57',  flag: '🇨🇴' },
+    { code: '51',  flag: '🇵🇪' },
+    { code: '56',  flag: '🇨🇱' },
+    { code: '593', flag: '🇪🇨' },
+    { code: '27',  flag: '🇿🇦' },
+    { code: '234', flag: '🇳🇬' },
+    { code: '20',  flag: '🇪🇬' },
+    { code: '212', flag: '🇲🇦' },
+    { code: '971', flag: '🇦🇪' },
+    { code: '966', flag: '🇸🇦' },
+    { code: '92',  flag: '🇵🇰' },
+    { code: '880', flag: '🇧🇩' },
+    { code: '7',   flag: '🇷🇺' },
+    { code: '380', flag: '🇺🇦' },
+    { code: '48',  flag: '🇵🇱' },
+    { code: '31',  flag: '🇳🇱' },
+    { code: '39',  flag: '🇮🇹' },
+    { code: '34',  flag: '🇪🇸' },
+    { code: '351', flag: '🇵🇹' },
+    { code: '30',  flag: '🇬🇷' },
+    { code: '90',  flag: '🇹🇷' },
+    { code: '98',  flag: '🇮🇷' },
+    { code: '972', flag: '🇮🇱' },
+  ];
+
+  // Normalisasi: hilangkan +, 00 di depan → digit murni
+  function toDigits(num) {
+    let s = num.trim().replace(/\s/g, '');
+    if (s.startsWith('+')) s = s.slice(1);
+    else if (s.startsWith('00')) s = s.slice(2);
+    return s.replace(/\D/g, '');
+  }
+
+  // Deteksi kode negara dari string digit
+  function detectCountry(digits) {
+    // Coba dari 3 digit → 2 digit → 1 digit
+    for (let len of [3, 2, 1]) {
+      const prefix = digits.substring(0, len);
+      const match = countryData.find(c => c.code === prefix);
+      if (match) return match;
+    }
+    return { code: '', flag: '🌐' };
+  }
+
+  // Hapus kode negara dari digits (hasil toDigits)
+  function stripCountryCode(digits, mode) {
+    if (mode === 'none') return digits;
+
+    let codeToStrip = mode;
+
+    if (mode === 'auto') {
+      const country = detectCountry(digits);
+      codeToStrip = country.code;
+    }
+
+    if (codeToStrip && digits.startsWith(codeToStrip)) {
+      return digits.slice(codeToStrip.length);
+    }
+
+    return digits;
+  }
+
+  function processNumber(raw) {
+    const digits = toDigits(raw);
+    const country = detectCountry(digits);
+    const mode = document.getElementById('stripMode').value;
+    const stripped = stripCountryCode(digits, mode);
+
+    return {
+      original: raw.trim(),
+      digits,
+      stripped,   // yang akan di-copy
+      flag: country.flag,
+      code: country.code,
     };
+  }
 
-    function getFlag(number) {
-      const clean = number.replace(/\D/g, '');
-      const stripped = clean.startsWith('00') ? clean.slice(2) : clean.startsWith('+') ? clean.slice(1) : clean;
-      // Coba match dari panjang terpanjang
-      for (let len of [3, 2, 1]) {
-        const code = stripped.substring(0, len);
-        if (countryFlags[code]) return { flag: countryFlags[code], code };
-      }
-      return { flag: '🌐', code: '' };
+  function handleFile(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const text = e.target.result;
+      allNumbers = text.split('\n')
+        .map(l => l.trim())
+        .filter(l => l.length >= 5 && /\d/.test(l));
+
+      document.getElementById('fileInfo').textContent =
+        `✅ ${file.name} · ${allNumbers.length.toLocaleString()} nomor dimuat`;
+      document.getElementById('btnChange').disabled = false;
+      document.getElementById('btnCopyAll').disabled = false;
+      pickRandom();
+    };
+    reader.readAsText(file);
+  }
+
+  function pickRandom() {
+    if (allNumbers.length === 0) return;
+
+    const shuffled = [...allNumbers].sort(() => Math.random() - 0.5);
+    const picked = shuffled.slice(0, COUNT);
+    currentPicked = picked.map(n => processNumber(n));
+
+    renderResults();
+  }
+
+  function renderResults() {
+    const container = document.getElementById('results');
+    container.innerHTML = '';
+
+    currentPicked.forEach((item, idx) => {
+      const div = document.createElement('div');
+      div.className = 'phone-item';
+      div.innerHTML = `
+        <span class="copy-icon">📋</span>
+        <span class="flag">${item.flag}</span>
+        <div class="number-wrap">
+          <span class="number-orig">${item.original}</span>
+          <span class="number-stripped">Copy: ${item.stripped}</span>
+        </div>
+        <span class="copy-toast" id="t${idx}">✅ ${item.stripped}</span>
+      `;
+      div.onclick = () => copyOne(item, idx);
+      container.appendChild(div);
+    });
+
+    document.getElementById('countInfo').textContent =
+      `Total ${allNumbers.length.toLocaleString()} nomor tersedia`;
+  }
+
+  function copyOne(item, idx) {
+    navigator.clipboard.writeText(item.stripped).then(() => {
+      const toast = document.getElementById('t' + idx);
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1600);
+    });
+  }
+
+  function copyAll() {
+    if (currentPicked.length === 0) return;
+    const text = currentPicked.map(i => i.stripped).join('\n');
+    navigator.clipboard.writeText(text).then(() => {
+      showGlobalToast(`✅ ${currentPicked.length} nomor berhasil di-copy!`);
+    });
+  }
+
+  function showGlobalToast(msg) {
+    const t = document.getElementById('toastGlobal');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  // Re-render saat mode strip berubah
+  document.getElementById('stripMode').addEventListener('change', () => {
+    if (currentPicked.length > 0) {
+      currentPicked = currentPicked.map(i => processNumber(i.original));
+      renderResults();
     }
-
-    function formatDisplay(number) {
-      const clean = number.trim();
-      // Sudah ada + atau 00 → tampilkan apa adanya
-      if (clean.startsWith('+') || clean.startsWith('00')) return clean;
-      return clean;
-    }
-
-    function handleFile(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const text = e.target.result;
-        allNumbers = text.split('\n')
-          .map(l => l.trim())
-          .filter(l => l.length >= 6 && /\d/.test(l));
-
-        document.getElementById('fileInfo').textContent =
-          `✅ ${file.name} — ${allNumbers.length.toLocaleString()} nomor dimuat`;
-        document.getElementById('btnChange').disabled = false;
-        pickRandom();
-      };
-      reader.readAsText(file);
-    }
-
-    function pickRandom() {
-      if (allNumbers.length === 0) return;
-
-      const shuffled = [...allNumbers].sort(() => Math.random() - 0.5);
-      const picked = shuffled.slice(0, COUNT);
-
-      const container = document.getElementById('results');
-      container.innerHTML = '';
-
-      picked.forEach(num => {
-        const display = formatDisplay(num);
-        const { flag } = getFlag(num);
-
-        const item = document.createElement('div');
-        item.className = 'phone-item';
-        item.innerHTML = `
-          <span class="copy-icon">📋</span>
-          <span class="flag">${flag}</span>
-          <span class="number">${display}</span>
-          <span class="copy-toast" id="toast-${encodeURIComponent(display)}">Copied!</span>
-        `;
-        item.onclick = () => copyNumber(display, item);
-        container.appendChild(item);
-      });
-
-      document.getElementById('countInfo').textContent =
-        `Total ${allNumbers.length.toLocaleString()} nomor tersedia`;
-    }
-
-    function copyNumber(num, el) {
-      navigator.clipboard.writeText(num).then(() => {
-        const toast = el.querySelector('.copy-toast');
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 1500);
-      });
-    }
-  </script>
+  });
+</script>
 </body>
-</html>
+      </html>
